@@ -1,0 +1,143 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'constants.dart';
+import 'details.dart';
+import 'newdata.dart';
+
+void main() => runApp(MaterialApp(
+      title: "Api Test",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: Home(),
+    ));
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List dataList = [];
+  bool isLoading = true;
+  Future<void> getAlldata() async {
+    Response response;
+    var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.usersEndpoint);
+    response = await http.get(url);
+    // return jsonDecode(response.body);
+    final list = jsonDecode(response.body);
+    print(list);
+    // // dataList = list.map((e) => Student.fromJson(e)).toList();
+    // dataList = list;
+
+    // setState(() {
+    //   if (dataList.isEmpty) {
+    //     isLoading = false;
+    //   }
+    // });
+    // return list;
+  }
+
+  @override
+  void initState() {
+    getAlldata();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    setState(() {
+      getAlldata();
+    });
+    return Container(
+      child: ListView.builder(
+          itemCount: dataList.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                dataList[index].id.toString();
+              },
+              // child: dataList[index].name.toString() ,
+            );
+          }),
+    );
+  }
+}
+
+// class DataCard extends StatelessWidget{
+//     int id;
+//   String name,age;
+//   DataCard({
+//     required this.id,
+//     required this.name,
+//     required this.age
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // TODO: implement build
+//     // throw UnimplementedError();
+//     // return DataCard(elevation:3,
+//     // color:Color.white24,
+//     // child:Container(
+
+//     // ),);
+//     return Card(
+//         elevation:3,
+//         color:Colors.orange,
+//         child: Container(
+//           margin: EdgeInsets.all(5.0),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Row(
+//                 children: [
+//                   Padding(padding: EdgeInsets.all(5.0),
+//                   child: Image.network(src),
+//                   )
+
+//                 ],
+//               )
+//             ],
+//           ),
+//         ),
+//     );
+// }
+
+// }
+
+class Items extends StatelessWidget {
+  List list = [];
+
+  Items({required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: list == null ? 0 : list.length,
+        itemBuilder: (ctx, i) {
+          return ListTile(
+            leading: Icon(Icons.message),
+            title: Text(list[i]['name']),
+            subtitle: Text(list[i]['age']),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => Details(list: list, index: i),
+            )),
+          );
+        });
+  }
+}
+
+class Student {
+  int id, age;
+  String name;
+  Student({required this.id, required this.name, required this.age});
+  factory Student.fromJson(Map<String, dynamic> json) =>
+      Student(id: json['id'], name: json['name'], age: json['age']);
+}

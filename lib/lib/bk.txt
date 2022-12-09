@@ -1,0 +1,52 @@
+main.dart
+/*
+ // Future<List> getData() async {
+  //   var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.usersEndpoint);
+  //   final responce = await http.get(url);
+  //   return jsonDecode(responce.body);
+  // }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: AppBar(
+  //       title: Text("My App Bar"),
+  //     ),
+  //     floatingActionButton: FloatingActionButton(
+  //       onPressed: () => Navigator.of(context).push(
+  //         MaterialPageRoute(
+  //           builder: (BuildContext contex) => NewData(),
+  //         ),
+  //       ),
+  //       child: Icon(Icons.add),
+  //     ),
+  //     body: FutureBuilder<void>(
+  //       future: getAlldata(),
+  //       builder: (context, snapshot) {
+  //         if (snapshot.hasData) {
+  //           final dataList = snapshot.data as List<dynamic>;
+  //           return ListView.builder(
+  //               itemCount: dataList.length,
+  //               itemBuilder: (context, index) {
+  //                 return Text(dataList[index].name);
+  //               });
+  //         } else if (snapshot.hasError) {
+  //           // handle error here
+  //           return Text('${snapshot.error}');
+  //         } else {
+  //           return CircularProgressIndicator(); // displays while loading data
+  //         }
+
+  //         // if (ss.hasError) {
+  //         //   print("error");
+  //         // }
+  //         // if (ss.hasData) {
+  //         //   return Items(list: '');
+  //         // } else {
+  //         //   return CircularProgressIndicator();
+  //         // }
+  //       },
+  //     ),
+  //   );
+  // }
+*/
